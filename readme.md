@@ -1,4 +1,4 @@
-# AWS Starter
+# Current Tech  
 ![](https://s3.amazonaws.com/iot-course/aws.svg)
 
 
