@@ -1,6 +1,5 @@
 # AWS Starter
-
-
+![](https://s3.amazonaws.com/iot-course/aws.svg)
 
 
 ## Features
