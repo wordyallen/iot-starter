@@ -1,0 +1,6 @@
+web/node_modules
+cloud/node_modules
+cloud/yarn.*
+cloud/.serverless
+web/yarn.*
+.vscode

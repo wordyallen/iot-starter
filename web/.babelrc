@@ -1,0 +1,21 @@
+{
+    "presets": [
+        "@babel/preset-react",
+        [
+            "@babel/preset-env",
+            {
+                "targets": {
+                    "browsers": [
+                        "last 2 versions",
+                        "safari >= 7"
+                    ]
+                },
+                "shippedProposals": true
+            }
+        ]
+    ],
+    "plugins": [
+        "react-hot-loader/babel",
+        "@babel/plugin-proposal-class-properties"
+    ]
+}

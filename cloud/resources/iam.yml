@@ -1,0 +1,19 @@
+DynamoDBRole: 
+  Type: AWS::IAM::Role
+  Properties:
+    AssumeRolePolicyDocument:
+      Statement:
+        - Effect: Allow
+          Principal:
+            Service: appsync.amazonaws.com
+          Action: sts:AssumeRole
+    Policies:
+      - PolicyName: appsync-dynamodb
+        PolicyDocument:
+          Statement:
+            - Effect: Allow
+              Action:
+              - dynamodb:Query
+              - dynamodb:PutItem
+              - dynamodb:Scan
+              Resource: "*"          

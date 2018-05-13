@@ -1,0 +1,35 @@
+{
+    "scripts": {
+        "dev": "webpack-dev-server --env.dev --hot",
+    },
+    "dependencies": {
+        "@babel/core": "^7.0.0-beta.44",
+        "@babel/plugin-proposal-class-properties": "^7.0.0-beta.44",
+        "@babel/preset-env": "^7.0.0-beta.44",
+        "@babel/preset-react": "^7.0.0-beta.44",
+        "babel-eslint": "^8.2.3",
+        "babel-loader": "^8.0.0-beta",
+        "eslint-loader": "^2.0.0",
+        "file-loader": "^1.1.11",
+        "proptypes": "^1.1.0",
+        "react": "^16.3.1",
+        "react-dom": "^16.3.1",
+        "react-hot-loader": "^4.0.1",
+        "react-native-vector-icons": "^4.6.0",
+        "react-native-web": "^0.5.4",
+        "react-router-dom": "^4.2.2",
+        "webpack": "^4.5.0"
+    },
+    "devDependencies": {
+        "eslint": "^4.19.1",
+        "eslint-config-airbnb": "^16.1.0",
+        "eslint-plugin-import": "^2.11.0",
+        "eslint-plugin-iot-course": "^0.0.5",
+        "eslint-plugin-jsx-a11y": "^6.0.3",
+        "eslint-plugin-react": "^7.7.0",
+        "styled-components": "^3.2.5",
+        "sync-request": "^6.0.0",
+        "webpack-cli": "^2.0.14",
+        "webpack-dev-server": "^3.1.3"
+    }
+}

@@ -1,0 +1,25 @@
+service: learn-appsync
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  variableSyntax: "\\${{([ ~:a-zA-Z0-9._\\'\",\\-\\/\\(\\)]+?)}}"
+
+resources:
+  Resources:
+    # IAM
+    DynamoDBRole: ${{file(resources/iam.yml):DynamoDBRole}}
+    
+    #DynamoDB
+    TodosTable: ${{file(resources/dynamodb.yml):TodosTable}}
+    
+    # AppSync
+    GraphQLApi: ${{file(resources/appsync.yml):GraphQLApi}}
+    Schema: ${{file(resources/appsync.yml):Schema}}
+    ApiKey: ${{file(resources/appsync.yml):ApiKey}}
+    DynamoDataSource: ${{file(resources/appsync.yml):DynamoDataSource}}
+    GetTodosResolver: ${{file(resources/appsync.yml):GetTodosResolver}}
+    PutTodoResolver: ${{file(resources/appsync.yml):PutTodoResolver}}
+    
+
+    

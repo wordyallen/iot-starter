@@ -1,0 +1,9 @@
+{
+    "scripts": {
+        "build": "node -e 'require(\"./utils\").prepSchema()'",
+        "deploy": "yarn build && sls deploy --force",
+    },
+    "dependencies": {
+        "graphql": "^0.13.2"
+    }
+}

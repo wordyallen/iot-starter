@@ -1,0 +1,77 @@
+GraphQLApi: 
+  Type: AWS::AppSync::GraphQLApi
+  Properties:
+    Name: "Delete Me"
+    AuthenticationType: API_KEY
+
+
+ApiKey:
+  Type: "AWS::AppSync::ApiKey"
+  Properties:
+    ApiId: 
+      Fn::GetAtt: [ GraphQLApi, ApiId]
+
+Schema:
+  Type: AWS::AppSync::GraphQLSchema
+  Properties:
+    ApiId: 
+      Fn::GetAtt: [ GraphQLApi, ApiId]
+    Definition: ${{file(.serverless/schema.json):Definition}}
+
+
+
+DynamoDataSource:
+  Type: AWS::AppSync::DataSource
+  Properties: 
+    Type: AMAZON_DYNAMODB     
+    ApiId: 
+      Fn::GetAtt: [ GraphQLApi, ApiId]
+    Name: TodoDataSource
+    ServiceRoleArn: 
+      Fn::GetAtt: [DynamoDBRole, Arn]
+    DynamoDBConfig: 
+      TableName: TodosTable
+      AwsRegion: 
+        Ref: AWS::Region
+
+# 
+
+GetTodosResolver:
+  Type: AWS::AppSync::Resolver
+  DependsOn: Schema
+  Properties:
+    TypeName: Query
+    DataSourceName: 
+      Fn::GetAtt: [ DynamoDataSource, Name]
+    RequestMappingTemplate: |
+      {
+          "version" : "2017-02-28",
+          "operation" : "Scan"
+      }    
+    ResponseMappingTemplate: "$util.toJson($ctx.result.items)"
+    FieldName: todos
+    ApiId: 
+      Fn::GetAtt: [ GraphQLApi, ApiId]    
+
+
+
+PutTodoResolver:
+  Type: AWS::AppSync::Resolver
+  DependsOn: Schema
+  Properties:
+    TypeName: Mutation
+    DataSourceName: 
+      Fn::GetAtt: [ DynamoDataSource, Name]
+    RequestMappingTemplate: |
+      {
+          "version" : "2017-02-28",
+          "operation" : "PutItem",
+          "key" : {
+              "id" : { "S" : "${ctx.args.id}" }
+          },
+          "attributeValues" : $util.dynamodb.toMapValuesJson($ctx.args)
+      }
+    ResponseMappingTemplate: "$utils.toJson($context.result)"
+    FieldName: addTodo
+    ApiId: 
+      Fn::GetAtt: [ GraphQLApi, ApiId]    
