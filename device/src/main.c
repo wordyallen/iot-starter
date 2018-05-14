@@ -162,6 +162,7 @@ static void prvMiscInitialization( void ) {
     Console_UART_Init();
 }
 
+
 void Error_Handler( void ){
   while( 1 ){
     BSP_LED_Toggle( LED_GREEN );
@@ -174,20 +175,24 @@ void vApplicationMallocFailedHook() {
   configPRINTF( ( "ERROR: Malloc failed to allocate memory\r\n" ) );
 }
 
+
 void vApplicationStackOverflowHook( TaskHandle_t xTask, char * pcTaskName ){
   portDISABLE_INTERRUPTS();
   for( ; ; );
 }
+
 
 void * malloc( size_t xSize ){
   configASSERT( xSize == ~0 );
   return NULL;
 }
 
+
 void vOutputChar( const char cChar, const TickType_t xTicksToWait ){
     ( void ) cChar;
     ( void ) xTicksToWait;
 }
+
 
 void vMainUARTPrintString( char * pcString ){
     const uint32_t ulTimeout = 3000UL;
@@ -198,6 +203,7 @@ void vMainUARTPrintString( char * pcString ){
       ulTimeout
     );
 }
+
 
 void prvGetRegistersFromStack( uint32_t * pulFaultStackAddress ){
 
@@ -233,35 +239,36 @@ void prvGetRegistersFromStack( uint32_t * pulFaultStackAddress ){
     for( ; ; );
 }
 
+
 void HardFault_Handler( void ){
-    __asm volatile
-    (
-        " tst lr, #4                                                \n"
-        " ite eq                                                    \n"
-        " mrseq r0, msp                                             \n"
-        " mrsne r0, psp                                             \n"
-        " ldr r1, [r0, #24]                                         \n"
-        " ldr r2, handler2_address_const                            \n"
-        " bx r2                                                     \n"
-        " handler2_address_const: .word prvGetRegistersFromStack    \n"
-  }
+  __asm volatile
+  (
+      " tst lr, #4                                                \n"
+      " ite eq                                                    \n"
+      " mrseq r0, msp                                             \n"
+      " mrsne r0, psp                                             \n"
+      " ldr r1, [r0, #24]                                         \n"
+      " ldr r2, handler2_address_const                            \n"
+      " bx r2                                                     \n"
+      " handler2_address_const: .word prvGetRegistersFromStack    \n"
+}
+
 
 int iMainRand32( void ){
-      static UBaseType_t uxlNextRand; /*_RB_ Not seeded. */
-      const uint32_t ulMultiplier = 0x015a4e35UL, ulIncrement = 1UL;
-      uxlNextRand = ( ulMultiplier * uxlNextRand ) + ulIncrement;
-      return( ( int ) ( uxlNextRand >> 16UL ) & 0x7fffUL );
-  }
+  static UBaseType_t uxlNextRand; /*_RB_ Not seeded. */
+  const uint32_t ulMultiplier = 0x015a4e35UL, ulIncrement = 1UL;
+  uxlNextRand = ( ulMultiplier * uxlNextRand ) + ulIncrement;
+  return( ( int ) ( uxlNextRand >> 16UL ) & 0x7fffUL );
+}
 
 
-  static void prvInitializeHeap( void ){
-      static uint8_t ucHeap1[ configTOTAL_HEAP_SIZE ];
-      static uint8_t ucHeap2[ 27 * 1024 ] __attribute__( ( section( ".freertos_heap2" ) ) );
-      HeapRegion_t xHeapRegions[] = {
-          { ( unsigned char * ) ucHeap2, sizeof( ucHeap2 ) },
-          { ( unsigned char * ) ucHeap1, sizeof( ucHeap1 ) },
-          { NULL,                                        0 }
-      };
-      vPortDefineHeapRegions( xHeapRegions );
-  }
-  
+static void prvInitializeHeap( void ){
+  static uint8_t ucHeap1[ configTOTAL_HEAP_SIZE ];
+  static uint8_t ucHeap2[ 27 * 1024 ] __attribute__( ( section( ".freertos_heap2" ) ) );
+  HeapRegion_t xHeapRegions[] = {
+    { ( unsigned char * ) ucHeap2, sizeof( ucHeap2 ) },
+    { ( unsigned char * ) ucHeap1, sizeof( ucHeap1 ) },
+    { NULL,                                        0 }
+  };
+  vPortDefineHeapRegions( xHeapRegions );
+}
