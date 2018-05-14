@@ -241,8 +241,7 @@ void prvGetRegistersFromStack( uint32_t * pulFaultStackAddress ){
 
 
 void HardFault_Handler( void ){
-  __asm volatile
-  (
+  __asm volatile (
     " tst lr, #4                                                \n"
     " ite eq                                                    \n"
     " mrseq r0, msp                                             \n"
