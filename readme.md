@@ -10,26 +10,42 @@
 
 ##  Tree 
 ```
-├── mobile 📱
-│  
-├── device 🤖
-│  
+...
 ├── cloud ☁️
-│   ├── schema.gql
-│   ├── serverless.yml
-│   ├── utils
-│   └── resources
-│       ├── appsync.yml
-│       ├── dynamodb.yml
-│       └── iam.yml
-│  
+│   ├── resources
+│   │   ├── appsync.yml 🔁
+│   │   ├── dynamodb.yml
+│   │   └── iam.yml
+│   ├── schema.gql 
+│   ├── serverless.yml 
+│   └── utils
+│ 
+├── device 🤖
+│   ├── config
+│   │   └── FreeRTOSConfig.h 🚀
+│   ├── lib
+│   │   ├── FreeRTOS
+│   │   ├── bufferpool
+│   │   ├── crypto
+│   │   ├── pkcs11
+│   │   ├── secure_sockets
+│   │   ├── tls
+│   │   ├── utils
+│   │   └── wifi
+│   └── src
+│       ├── main.c
+│       ├── main.h
+│       └── vendor
+│ 
 └── web 🖥
-    ├── index.js
+    ├── index.js ⚛️
     ├── src
     │   ├── App.js
     │   ├── components
     │   └── pages
     ├── web
+    │   ├── FontAwesome.ttf
+    │   └── index.html
     └── webpack.config.js
 ```
 
