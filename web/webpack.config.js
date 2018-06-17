@@ -33,7 +33,6 @@ module.exports = ({ dev }) => ({
     resolve: {
         alias: {
             'react-native': 'react-native-web',
-            'react-router': 'react-native-dom',
             'react-native-vector-icons/FontAwesome': 'react-native-vector-icons/dist/FontAwesome'
         }
     }

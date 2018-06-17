@@ -16,7 +16,7 @@ Schema:
   Properties:
     ApiId: 
       Fn::GetAtt: [ GraphQLApi, ApiId]
-    Definition: ${{file(.serverless/schema.json):Definition}}
+    Definition: ${{file(schema.gql)}}
 
 
 
