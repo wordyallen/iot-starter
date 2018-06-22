@@ -1,0 +1,2 @@
+# Device Todo
+- [ ] setup debugger
